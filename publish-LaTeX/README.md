@@ -3,6 +3,8 @@
 This script is run after a commit.
 It sends on a server via `scp` the pdf files (compiled by LaTeX or not) in set directories, only if the files are changed.
 
+**NOTE :** The pdf files must be compiled before the commit.
+
 ## Configuration
 
 Create a file `latex-dirs.txt` inside `.git/hook` containing the list of all directories of the repository with TeX sources. Example :
@@ -11,7 +13,7 @@ Create a file `latex-dirs.txt` inside `.git/hook` containing the list of all dir
 Report/2021
 Talks
 ```
-The pdf file synchronised on the server will be all PDF files inside these folders, excludin subdirectories.
+The pdf file synchronised on the server will be all PDF files inside these folders, excluding subdirectories.
 
 The settings of `post-commit` script are :
 
