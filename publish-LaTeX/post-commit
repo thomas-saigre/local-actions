@@ -1,0 +1,35 @@
+#!/bin/sh
+
+
+SERVER="address-to-server.fr"
+USER="username"
+SCP_PATH="public_html/path"
+
+alias EXTRACMD="ssh $USER@$SERVER majhome"
+# alias EXTRACMD="echo"
+
+UPDATE='false'
+
+DIR_PATH=$(dirname $0)
+
+FILES=$(git diff-tree --no-commit-id --name-only -r HEAD~)
+DIR_FILE="latex-dirs.txt"
+DIRS=$(cat $DIR_PATH/$DIR_FILE)
+
+
+
+for DIR in $DIRS
+do
+    if echo $FILES | grep $DIR
+    then
+        echo $DIR;
+        scp $DIR/*.pdf $USER@$SERVER:$SCP_PATH;
+        UPDATE='true';
+    fi
+done
+
+if [ $UPDATE = 'true' ]
+then
+    EXTRACMD
+fi
+
